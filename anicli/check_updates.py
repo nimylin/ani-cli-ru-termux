@@ -36,28 +36,7 @@ def save_cached_version(package_name, version):
         json.dump({"version": version, "timestamp": time.time()}, f)
 
 
-def check_version(package_name=PACKAGE_NAME) -> Tuple[bool, str, str]:
-    """compare local and pypi version lib
-
-    return True, <current>, <actual> have new version on pypi
-    return False, <current>, <actual> is same as current
+def check_version(package_name=PACKAGE_NAME):
+    """ Doesn't work correctly on termux
     """
-    local_version = pkg_version(package_name)
-    cached_version, timestamp = get_cached_version(package_name)
-
-    if cached_version and timestamp:
-        pypi_version = cached_version
-    else:
-        pypi_version = get_pypi_version(package_name)
-        if pypi_version:
-            save_cached_version(package_name, pypi_version)
-
-    if pypi_version is None:
-        warnings.warn("Failed to fetch version from PyPi.", category=Warning)
-        return False, local_version, ""
-    local_version_int = tuple(int(i) for i in local_version.split("."))
-    pypi_version_int = tuple(int(i) for i in pypi_version.split("."))
-    if local_version_int < pypi_version_int:
-        return True, local_version, pypi_version
-    else:
-        return False, local_version, pypi_version
+    
