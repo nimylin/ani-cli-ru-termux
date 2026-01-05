@@ -44,7 +44,6 @@ class BasePlayer:
             proc = subprocess.Popen(cmd, shell=True)
         proc.wait()
 
-
 class MpvPlayer(BasePlayer):
     PLAYER = "mpv"
     TITLE = "--title"
@@ -52,10 +51,7 @@ class MpvPlayer(BasePlayer):
     USER_AGENT_KEY = "--user-agent"
     REFERER_KEY = "--referrer"
 
-    def play_from_playlist(
-        self, videos: List["Video"], names: List[str], headers: Optional[Dict] = None, quality: int = 1080
-    ):
-
+    def play_from_playlist(self, videos: List["Video"], names: List[str], headers: Optional[Dict] = None, quality: int = 1080):
         # TODO pass headers args from argument
         headers = videos[0].headers
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".m3u") as temp_file:
@@ -79,11 +75,11 @@ class MpvPlayer(BasePlayer):
     @classmethod
     def _headers_to_mpv_opts(cls, headers: Dict[str, Any]) -> str:
         if ua:= cls._find_and_drop_key(headers, "user-agent"):
-            user_agent = f'{cls.USER_AGENT_KEY}="{ua}"'
+            user_agent = f'{cls.USER_AGENT_KEY} "{ua}"'
         else:
             user_agent = ""
         if referrer:=cls._find_and_drop_key(headers, "referrer"):
-            referrer = f'{cls.REFERER_KEY}="{referrer}"'
+            referrer = f'{cls.REFERER_KEY} "{referrer}"'
         else:
             referrer = ""
         result = []
@@ -99,12 +95,18 @@ class MpvPlayer(BasePlayer):
         return cls._headers_to_mpv_opts(headers)
 
     def play(self, video: "Video", title: Optional[str] = None, *, player: Optional[str] = None, **kwargs):
-        title_arg = f"{self.TITLE}={self.quote(title)}" if title else ""
+        title_arg = f"{self.TITLE} '{self.quote(title)}'" if title else ""
         headers_arg = self._parse_headers_args(video.headers)
         extra_args = self.app_cfg.PLAYER_EXTRA_ARGS
-        command = f'{self.PLAYER} {extra_args} {title_arg} {headers_arg} "{video.url}"'
+        command = f'{self.PLAYER} {extra_args} {title_arg} {headers_arg} -e filepath "{video.url}"'
         self.shell_execute(command)
 
+class MpvAndroidPlayer(MpvPlayer):
+    PLAYER = "am start -n is.xyz.mpv/.MPVActivity"
+    TITLE = """--es 'title'"""
+    HEADERS_KEY = """--es 'http-header-fields'"""
+    USER_AGENT_KEY = """--es 'user_agent'"""
+    REFERER_KEY = """--es 'referer'"""
 
 class VLCPlayer(BasePlayer):
     TITLE_ARG = "--meta-title"
