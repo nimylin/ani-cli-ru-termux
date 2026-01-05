@@ -4,7 +4,7 @@
 ---
 
 Скрипт для поиска и просмотра аниме из терминала с русской озвучкой или субтитрами.
-Поддерживает termux
+Поддерживает **только termux**
 
 https://github.com/vypivshiy/ani-cli-ru/assets/59173419/bf7e78bd-cdd1-4871-a5b3-f48e6ed7ec28
 
@@ -14,6 +14,8 @@ https://github.com/vypivshiy/ani-cli-ru/assets/59173419/bf7e78bd-cdd1-4871-a5b3-
 - требуется [mpv-android видеоплеер](https://github.com/mpv-android/mpv-android)
 - также необходимо установить пакет python-lxml через pkg `pkg install python-lxml`
 - рекомендуется отдельная установка пакета **anicli_api**, для избежания компиляции lxml `pip install git+https://github.com/anicli-api/anicli-api.git`
+
+**Перед запуском видео установите [mpv-android видеоплеер](https://github.com/mpv-android/mpv-android)**
 
 **На данный момент поддерживается установка только через git** `git clone https://github.com/nimylin/ani-cli-ru-termux.git`
 
