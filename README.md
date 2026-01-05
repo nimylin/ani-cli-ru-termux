@@ -1,63 +1,23 @@
-# anicli-ru
+# Based on anicli-ru by [vypivshiy](https://github.com/vypivshiy)
+# anicli-ru-termux
 
 ---
 
 Скрипт для поиска и просмотра аниме из терминала с русской озвучкой или субтитрами.
-Поддерживает unix, linux, windows 10/11 (windows terminal)
+Поддерживает termux
 
 https://github.com/vypivshiy/ani-cli-ru/assets/59173419/bf7e78bd-cdd1-4871-a5b3-f48e6ed7ec28
 
 ## Установка
 
 - Поддерживает python 3.8 или выше
-- требуется [mpv видеоплеер](https://github.com/mpv-player/mpv)
+- требуется [mpv-android видеоплеер](https://github.com/mpv-android/mpv-android)
+- также необходимо установить пакет python-lxml через pkg `pkg install python-lxml`
+- рекомендуется отдельная установка пакета **anicli_api**, для избежания компиляции lxml `pip install git+https://github.com/anicli-api/anicli-api.git`
 
-| менеджер пакетов                                                       | установка                   | обновление                        |
-|------------------------------------------------------------------------|-----------------------------|-----------------------------------|
-| [uv (рекомендуется)](https://docs.astral.sh/uv/#installation)          | `uv tool install anicli-ru` | `uv tool upgrade anicli-ru`       |
-| [pipx](https://pipx.pypa.io/stable/installation/)                      | `pipx install anicli-ru`    | `pipx upgrade anicli-ru`          |
-| [pip (не рекомендуется см PEP 668)](https://peps.python.org/pep-0668/) | `pip install anicli-ru`     | `pip install anicli-ru --upgrade` |
+**На данный момент поддерживается установка только через git** `git clone https://github.com/nimylin/ani-cli-ru-termux.git`
 
 Если нужен только программный python api интерфейс парсеров для проекта используйте библиотеку [anicli-api](https://github.com/vypivshiy/anicli-api)
-
-Опциональная зависимость для извлечения cookies из браузера
-
->[!note]
-> 
-> Эта опция ситуативная и может пригодиться только в крайних случаях для обхода cloudflare или ddos guard.
-> Работает как опция в yt-dlp `--cookies-from-browser`.
-> Вы можете вручную экспортировать cookies из браузера в netscape формат и передать аргументом (ниже будет пример) без установки дополнительной зависимости
-
-Установка с зависимостью экспорта cookies с браузера:
-
-| менеджер пакетов                                  | установка                                    | обновление                        |
-|---------------------------------------------------|----------------------------------------------|-----------------------------------|
-| [uv](https://docs.astral.sh/uv/#installation)     | `uv tool install anicli-ru[browser-cookies]` | `uv tool upgrade anicli-ru`       |
-| [pipx](https://pipx.pypa.io/stable/installation/) | `pipx install anicli-ru[browser-cookies] `   | `pipx upgrade anicli-ru`          |
-| [pip](https://peps.python.org/pep-0668/)          | `pip install anicli-ru[browser-cookies] `    | `pip install anicli-ru --upgrade` |
-
-
-Добавление зависимости экпорта cookies с браузера:
-
-| менеджер пакетов                                                       | установка                                                     |
-|------------------------------------------------------------------------|---------------------------------------------------------------|
-| [uv](https://docs.astral.sh/uv/#installation)                          | `uv tool install anicli-ru --with anicli-ru[browser-cookies]` |
-| [pipx](https://pipx.pypa.io/stable/installation/)                      | `pipx inject anicli-ru anicli-ru[browser-cookies] `           | 
-| [pip (не рекомендуется см PEP 668)](https://peps.python.org/pep-0668/) | `pip install anicli-ru[browser-cookies] `                     |
-
-
-## Nix
-
-- Во [флейке](./flake.nix) имеются:
-
-  1. packages `nix run github:vypivshiy/ani-cli-ru`, a также вместо `run` `build` для `./result`
-  2. devShells `nix shell github:vypivshiy/ani-cli-ru`
-  3. overlays `pkgs.anicli-ru -> inputs.anicli-ru.packages.<system>.default` ! может не работать
-
-- Установка:
-
-  1. system-wide `environment.systemPackages = [ pkgs.anicli-ru ];`
-  2. user-only `home.packages = [ pkgs.anicli-ru ];`
 
 ## Usage:
 
