@@ -12,12 +12,21 @@ https://github.com/vypivshiy/ani-cli-ru/assets/59173419/bf7e78bd-cdd1-4871-a5b3-
 
 - Поддерживает python 3.8 или выше
 - требуется [mpv-android видеоплеер](https://github.com/mpv-android/mpv-android)
-- также необходимо установить пакет python-lxml через pkg `pkg install python-lxml`
-- рекомендуется отдельная установка пакета **anicli_api**, для избежания компиляции lxml `pip install git+https://github.com/anicli-api/anicli-api.git`
+- необходимо установить пакет python-lxml через pkg
+  ```
+  pkg install python-lxml
+  ```
+- рекомендуется отдельная установка пакета **anicli_api**, для избежания компиляции lxml
+  ```
+  pip install git+https://github.com/anicli-api/anicli-api.git
+  ```
 
 **Перед запуском видео установите [mpv-android видеоплеер](https://github.com/mpv-android/mpv-android)**
 
-**На данный момент поддерживается установка только через git** `git clone https://github.com/nimylin/ani-cli-ru-termux.git`
+**На данный момент поддерживается установка только через git**
+```
+git clone https://github.com/nimylin/ani-cli-ru-termux.git
+```
 
 Если нужен только программный python api интерфейс парсеров для проекта используйте библиотеку [anicli-api](https://github.com/vypivshiy/anicli-api)
 
